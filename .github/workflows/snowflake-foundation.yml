@@ -80,14 +80,14 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
 
-      - name: Use Python 3.8.x
-        if: github.event_name == 'pull_request'
+      - name: Setup Python 3.8.x
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: actions/setup-python@v2.2.1
         with:
           python-version: 3.8.x
 
-      - name: Run schemachange
-        if: github.event_name == 'pull_request'
+      - name: schemachange
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         env:
           SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
           SF_USERNAME: ${{ secrets.SF_USERNAME }}
